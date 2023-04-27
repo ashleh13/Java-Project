@@ -1,0 +1,153 @@
+package CSC204;
+import java.util.Scanner;
+import java.util.Arrays;
+import java.util.ArrayList;
+//import java.util.List;
+
+public class LieDetector15{
+	static int [] response = new int [7];
+	static Scanner input = new Scanner(System.in);
+
+	public static void main(String[] args) {
+		System.out.println("Think of a number between 0 and 15 inclusive");
+		encode(args, null);
+		decode(response);
+
+	}
+
+	public static int[] encode(String[] args, int[] response) {
+
+		response = new int [7];
+		System.out.println("Is the number 8 or greater? (yes = 1/no = 0)");
+		char r1 = input.next().charAt(0);
+		if (r1 == 'y' || r1 == 'Y'){
+			response[0] = 1;
+
+		}
+		else {
+			response[0] = 0;
+
+		}
+
+		System.out.println("Is it in the set {4,5,6,7,12,13,14,15}? (yes = 1/no = 0) ");
+		char r2 = input.next().charAt(0);
+		if (r2 == 'y' || r2 == 'Y'){
+			response[1] = 1;
+
+		}
+		else {
+			response[1] = 0;
+		}
+
+		System.out.println("Is it in the set {2,3,6,7,10,11,14,15}? (yes = 1/no = 0) ");
+		char r3 = input.next().charAt(0);
+		if (r3 == 'y' || r3 == 'Y'){
+			response[2] = 1;
+
+		}
+		else {
+			response[2] = 0;
+		}
+		System.out.println("Is it odd? (yes = 1/no = 0) ");
+		char r4 = input.next().charAt(0);
+		if (r4 == 'y' || r4 == 'Y'){
+			response[3] = 1;
+
+
+		}
+		else {
+			response[3] = 0;
+		}
+
+		System.out.println("Is it in the set {1,2,4,7,9,10,12,15}?(yes = 1/no = 0) ");
+		char r5 = input.next().charAt(0);
+		if (r5 == 'y' || r5 == 'Y'){
+			response[4] = 1;
+
+		}
+		else {
+			response[4] = 0;
+		}
+
+		System.out.println("Is it in the set {1,2,5,6,8,11,12,15}?(yes = 1/no = 0) ");
+		char r6 = input.next().charAt(0);
+		if (r6 == 'y' || r6 == 'Y'){
+			response[5] = 1;
+		}
+		else {
+
+			response[5] = 0;
+
+		}
+
+
+		System.out.println("Is it in the set {1,3,4,6,8,10,13,15}?(yes = 1/no = 0) ");
+		char r7 = input.next().charAt(0);
+		if (r7 == 'y' || r7 == 'Y'){
+			response[6] = 1;
+		}
+		else {
+			response[6] = 0;
+		}
+
+		System.out.println(Arrays.toString(response));
+
+
+		return response;
+	}
+
+	public static void decode (int[] response) {
+		int s = 0;
+		for (int c : response) {
+			s++;
+			int responseSize = s;
+		}
+		
+		System.out.println("The total number of 1's present is "
+                + count(response, 0, response.length - 1));
+		
+		//int x = 0;
+		//int y = 1;
+		//for (int y : response) {
+	      //  x++;
+	        //int responseSum = x;
+	    //}
+			
+	//	System.out.println("The sum is: " + x);
+		System.out.println("The length of the response array is: " + s);
+	
+		
+
+
+		//switch (cases) {
+
+		//}
+
+		/*int [][] weights= {
+		{0,0,0,0,0,0,0}, // case 1 
+		{1,0,0,0,0,0,0}, // case2
+		{1,1,0,0,0,0,0}, // case 3
+		{1,1,1,0,0,0,0}, // case 4
+		{1,1,1,1,0,0,0}, // case 5,6,7
+	};*/
+
+
+	/*for (int[] i : weights) {
+			  if (Arrays.equals(response, i)) {
+			    System.out.println("match");
+			  }
+			}*/
+}
+
+	public static int count(int[] response, int i, int j)
+    {
+		return 0;
+	       
+
+	}
+
+
+}
+
+
+
