@@ -1,0 +1,289 @@
+package csc204;
+import java.util.Scanner;
+import java.util.Arrays;
+import java.util.ArrayList;
+//import java.util.List;
+
+//create lie detector class
+public class LieDetector15{
+
+	//create static variables to be used in both methods
+	public static ArrayList<Integer> response = new ArrayList<Integer>();
+	public static ArrayList<Integer> needsFixing = new ArrayList<Integer>();
+	public static ArrayList<Integer> index = new ArrayList<Integer>();
+
+	static Scanner input = new Scanner(System.in);
+
+	//create main method
+	public static void main(String[] args) {
+
+		//prompt user to think of a number
+		System.out.println("Think of a number between 0 and 15 inclusive");
+
+		//call methods
+		encode(args, null);
+		decode(response);
+
+	}
+
+	//create encode method
+	public static ArrayList<Integer> encode(String[] args, ArrayList<Integer> response) {
+
+		//create an ArrayList for response
+		response = LieDetector15.response;
+
+		//Q1
+		System.out.println("Is the number 8 or greater? (yes = 1/no = 0)");
+		char r1 = input.next().charAt(0);
+		if (r1 == 'y' || r1 == 'Y'){
+			response.add (1);
+		}
+		else {
+			response.add(0);
+		}
+
+		//Q2
+		System.out.println("Is it in the set {4,5,6,7,12,13,14,15}? (yes = 1/no = 0) ");
+		char r2 = input.next().charAt(0);
+		if (r2 == 'y' || r2 == 'Y'){
+			response.add(1);
+		}
+		else {
+			response.add(0);
+		}
+
+		//Q3
+		System.out.println("Is it in the set {2,3,6,7,10,11,14,15}? (yes = 1/no = 0) ");
+		char r3 = input.next().charAt(0);
+		if (r3 == 'y' || r3 == 'Y'){
+			response.add(1);
+		}
+		else {
+			response.add(0);
+		}
+
+		//Q4
+		System.out.println("Is it odd? (yes = 1/no = 0) ");
+		char r4 = input.next().charAt(0);
+		if (r4 == 'y' || r4 == 'Y'){
+			response.add(1);
+		}
+		else {
+			response.add(0);
+		}
+
+		//Q5
+		System.out.println("Is it in the set {1,2,4,7,9,10,12,15}?(yes = 1/no = 0) ");
+		char r5 = input.next().charAt(0);
+		if (r5 == 'y' || r5 == 'Y'){
+			response.add(1);
+		}
+		else {
+			response.add(0);
+		}
+
+		//Q6
+		System.out.println("Is it in the set {1,2,5,6,8,11,12,15}?(yes = 1/no = 0) ");
+		char r6 = input.next().charAt(0);
+		if (r6 == 'y' || r6 == 'Y'){
+			response.add(1);
+		}
+		else {
+
+			response.add(0);
+		}
+
+		//Q7
+		System.out.println("Is it in the set {1,3,4,6,8,10,13,15}?(yes = 1/no = 0) ");
+		char r7 = input.next().charAt(0);
+		if (r7 == 'y' || r7 == 'Y'){
+			response.add(1);
+		}
+		else {
+			response.add(0);
+		}
+
+		//Print response ArrayList
+		System.out.println(response);
+
+		//find sum of the response array
+
+
+		//return response
+		return response;
+	}
+
+
+	//create decode method
+	public static void decode (ArrayList<Integer> response2) {
+		response2= LieDetector15.response;
+		//needsFixing = LieDetector15.needsFixing;
+		ArrayList<Integer> fixResponse = new ArrayList<Integer>();
+		int responseSum = 0;
+
+		for (int x : LieDetector15.response) {
+			if(x == 1) {
+				responseSum++;
+			}
+		}
+		System.out.println("The sum of the response array is: " + responseSum);
+
+		//int index = LieDetector15.index;
+		//get size of response array
+		int s = 0;
+		for (int c : response2) {
+			s++;
+			int responseSize = s;
+		}
+		//System.out.println("The length of the response array is: " + s);
+		//System.out.println(response2);
+
+		//create fano plane array
+		int[] [] correctAnswers = {
+		{0,0,0,0,0,0,0},//all 0
+		{0,0,0,1,1,1,1},//compliment 123
+		{0,0,1,0,1,1,0},//line 356
+		{0,0,1,1,0,0,1},//line 347
+		{0,1,0,0,1,0,1},//line 257
+		{0,1,0,1,0,1,0},//line 246
+		{0,1,1,0,0,1,1},//compliment 145
+		{0,1,1,1,1,0,0},//compliment 167
+		{1,0,0,0,0,1,1},//line 167
+		{1,0,0,1,1,0,0},//line 145
+		{1,0,1,0,1,0,1},//compliment 246
+		{1,0,1,1,0,1,0},//compliment 257
+		{1,1,0,0,1,1,0},//compliment 347
+		{1,1,0,1,0,0,1},//compliment 356 
+		{1,1,1,0,0,0,0},//line 123
+		{1,1,1,1,1,1,1},// all 1
+		};
+
+		/*
+		 * int [][] fano = { {1,5,4}, {1,3,2}, {2,6,4}, {2,7,5}, {3,5,6}, {3,7,4},
+		 * {1,7,6}, };
+		 */
+
+		//create cases based on result sum of 1's
+		switch (responseSum) {
+		case 0: System.out.println("No lie was told. The number you were thinking of was 0."); break;
+
+		case 1: System.out.println("The lie is in the position of the 1 in the string: index " + 
+		response2.indexOf(1));
+		LieDetector15.response.set(response2.indexOf(1), 0);
+		System.out.println("The fixed string is: " + LieDetector15.response);
+		decode(response2);
+		break;
+
+		case 2: 
+			int correctCount = 0;
+			int question = 0;
+			int i = 0;
+			ArrayList<Integer> compareTo = new ArrayList<Integer>();
+	
+		for (int m = 0, n = s; i < n; i++) {
+		    if (response2.get(m) == 1) { // check the number at index i
+		        index.add(m); // store the index
+		    }
+		}
+		int position1 = response2.indexOf(1);
+		int position2 = response2.lastIndexOf(1);
+		++position1;
+		++position2;
+		
+		System.out.println("The positions of the two 1s lie on a unique line; the third point on the line is the lie.");
+		System.out.println("Position one:  " + position1 + " Position two: " + position2); 
+
+		for(int row = 0; row<correctAnswers.length; row++){
+			for (int column = 0; column < correctAnswers[row].length; column++) {
+				//System.out.print(correctAnswers[row][column] + " ");
+			}
+			//System.out.println();
+		}
+		for (i = 0; i < correctAnswers.length; i++) {
+			correctCount = 0;
+			for (int j = 0; j< correctAnswers[i].length; j++) {
+				if (correctAnswers[i][j] == response2.get(j))
+					correctCount++;
+					}
+				//System.out.println("row " + i + " is: " + correctCount);
+		
+		if (correctCount == 6) {
+			question = i;
+			for(int j = 0; j<correctAnswers[question].length;j++){
+				compareTo.add(correctAnswers[question][j]);
+			}
+			System.out.println("The line we need to compare to is: " + compareTo);
+			}
+		
+		//int x = 0;
+		/*
+		 * for (int j = 0; j<compareTo.get(x); j++) { if(response2.get(x) !=
+		 * compareTo.get(j)) {
+		 * 
+		 * x = 0; LieDetector15.response.set(response2.indexOf(x), 0); } }
+		 */
+		//for(int x : compareTo) {
+			//if (x == 1) {
+				
+		
+			//System.out.println(response2.indexOf(x));
+			//System.out.println(compareTo.indexOf(x));
+			}
+		}
+		
+		
+		
+		
+		
+		
+		
+		}
+	}
+			 
+//System.out.println("The lie is at question: " + count);
+
+		//count -= count;
+		/*System.out.println(response2.get(count));
+		if (response2.get(count)== 0) {
+
+			LieDetector15.response.set(response2.indexOf(count), 1);
+		}
+		else {
+			LieDetector15.response.set(response2.indexOf(count), 0);
+		}
+		System.out.println("The fixed string is: " + LieDetector15.response);
+
+
+
+		break;
+		/*case 3: System.out.println("Look at the three positions of the three"
+				+ " 1s. If they form a line, then no lie was told. If not, then the complementary"
+				+ " set of positions of the four 0s contains exactly one line; the point not on "
+				+ "this line gives the lie.");
+		break;
+
+
+
+		case 4,5,6,7: System.out.println("If the weight is 4 or more, then apply the same "
+				+ "rules as above to the positions of the zeros."); 
+		for (int i = 0, n = s; i < n; i++) {
+		    if (response2.get(i) == 1) { // check the number at index i
+		        index.add(i); // store the index
+		    }
+		    int indexSum = 0;
+		    for (int x : index) {
+				if(x == 1) {
+					indexSum++;
+				}
+		    if (indexSum == 0) {
+		    	System.out.println("No lie was told.");
+		    }
+
+		}
+
+		break;
+		}*/
+	
+	
+
+
